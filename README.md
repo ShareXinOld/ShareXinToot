@@ -35,3 +35,13 @@ You can even turn them into Windows executables and macOS apps.
 1. `pip3 install pyinstaller` as sudo/root
 2. `pyinstaller (optional -F flag for one file instead of a folder) [file.py]`
 3. Done.
+
+### Cython
+Pyinstaller currently doesn't work with Python3.6, so we must resort to using Cython, which creates a C source file that gcc compiles. Not sure if this works with macOS, but it definitely doesn't work on Windows, unless you can get gcc working.  
+
+#### Steps for using Cython
+1. `pip3 install cython` as sudo/root
+2. `cp Your_Python.py Your_Python.pyx`
+3. `cython Your_Python.pyx --embed`
+4. `gcc -Os -I /usr/include/python3.6m -o Your_Python Your_Python.c -lpython3.6m -lpthread -lm -lutil -ldl`
+5. Done?

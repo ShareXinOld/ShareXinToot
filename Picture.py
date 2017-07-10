@@ -21,7 +21,7 @@ class Example(QWidget):
         self.tweetEdit = QtWidgets.QTextEdit()
         cancel = QtWidgets.QPushButton('Cancel')
         tweet = QtWidgets.QPushButton('Toot')
-        cancel.clicked.connect(QtCore.QCoreApplication.instance().quit)
+        cancel.clicked.connect(self.no)
         tweet.clicked.connect(self.tweet)
 
         grid = QtWidgets.QGridLayout()
@@ -40,10 +40,17 @@ class Example(QWidget):
         self.close()
         tweet = self.tweetEdit.toPlainText()
         call(["toot", "post", "-m", "/tmp/sharexin_img.png", tweet])
-        Notify.init('ShareXin')
+        Notify.init('ShareXinToot')
         Sent = Notify.Notification.new('Success', tweet)
         Sent.show()
         time.sleep(2)
+        Sent.close()
+    def no(self):
+        self.close()
+        Notify.init('ShareXinToot')
+        Sent = Notify.Notification.new('File saved')
+        Sent.show()
+        time.sleep(1)
         Sent.close()
         
 if __name__ == '__main__':
